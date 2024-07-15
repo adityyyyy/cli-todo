@@ -1,4 +1,3 @@
-
 package main
 
 import (
@@ -95,12 +94,20 @@ func main() {
 				fmt.Println("Invalid input. Please enter a number.")
 				continue
 			}
+
 			if tasknumber < 1 || tasknumber > len(tasks) {
 				fmt.Println("Task number out of range.")
 				continue
 			}
+
+			checkmark := "\u2714"
+
+			if strings.Contains(tasks[tasknumber-1], checkmark) {
+				continue
+			}
+
 			fmt.Printf("Task '%s' marked complete.\n", tasks[tasknumber-1])
-			tasks[tasknumber-1] = "Completed - " + tasks[tasknumber-1]
+			tasks[tasknumber-1] = tasks[tasknumber-1] + " : " + checkmark
 
 		case "list":
 			list(tasks)
@@ -142,9 +149,9 @@ func list(tasks []string) bool {
 		return false
 	}
 
-	fmt.Println("Your tasks -")
+	fmt.Println("Your tasks:")
 	for i, task := range tasks {
-		fmt.Printf("%d - %s\n", i+1, task)
+		fmt.Printf("%d. %s\n", i+1, task)
 	}
 	return true
 }
